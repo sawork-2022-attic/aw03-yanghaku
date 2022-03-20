@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.webpos.dao.ItemMapper">
+  <resultMap id="BaseResultMap" type="com.example.webpos.model.Item">
+    <id column="PRODUCT" jdbcType="VARCHAR" property="product" />
+    <result column="QUANTITY" jdbcType="INTEGER" property="quantity" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from item
+    where PRODUCT = #{product,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.webpos.model.Item">
+    insert into item (PRODUCT, QUANTITY)
+    values (#{product,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.example.webpos.model.Item">
+    update item
+    set QUANTITY = #{quantity,jdbcType=INTEGER}
+    where PRODUCT = #{product,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select PRODUCT, QUANTITY
+    from item
+    where PRODUCT = #{product,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select PRODUCT, QUANTITY
+    from item
+  </select>
+  <delete id="deleteAll">
+    delete from item
+  </delete>
+</mapper>

@@ -1,19 +1,43 @@
 package com.example.webpos.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
-@AllArgsConstructor
 public class Product {
     private String id;
+
     private String name;
-    private double price;
+
+    private Double price;
+
     private String image;
 
-    @Override
-    public String toString() {
-        return getId() + "\t" + getName() + "\t" + getPrice();
+    public String getId() {
+        return id;
     }
 
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image == null ? null : image.trim();
+    }
 }

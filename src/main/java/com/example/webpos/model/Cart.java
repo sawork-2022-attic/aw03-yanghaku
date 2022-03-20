@@ -1,36 +1,48 @@
 package com.example.webpos.model;
 
-import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Component
 public class Cart {
+    /**
+     * 定义的内部类, ItemEntry, 存储每个item的实体 (因为关系数据库item的表全是Product的索引)
+     */
+    static class ItemEntry {
+        private final Product product;
+        private final int quantity;
 
-    private List<Item> items = new ArrayList<>();
+        public ItemEntry(Product product, int quantity) {
+            this.product = product;
+            this.quantity = quantity;
+        }
 
-    public boolean addItem(Item item) {
-        return items.add(item);
+        public Product getProduct() {
+            return product;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
     }
 
-    @Override
-    public String toString() {
-        if (items.size() ==0){
-            return "Empty Cart";
+    private final List<ItemEntry> items = new ArrayList<>();
+
+    public boolean addItem(Product product, int amount) {
+        return items.add(new ItemEntry(product, amount));
+    }
+
+    public double getTotal() {
+        double sum = 0;
+        for (ItemEntry item : items) {
+            sum += item.getQuantity() * item.getProduct().getPrice();
         }
-        double total = 0;
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Cart -----------------\n"  );
+        return sum;
+    }
 
-        for (int i = 0; i < items.size(); i++) {
-            stringBuilder.append(items.get(i).toString()).append("\n");
-            total += items.get(i).getQuantity() * items.get(i).getProduct().getPrice();
-        }
-        stringBuilder.append("----------------------\n"  );
-
-        stringBuilder.append("Total...\t\t\t" + total );
-
-        return stringBuilder.toString();
+    public List<ItemEntry> getItems() {
+        return items;
     }
 }

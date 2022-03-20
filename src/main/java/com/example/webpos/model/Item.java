@@ -1,16 +1,23 @@
 package com.example.webpos.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
-@AllArgsConstructor
 public class Item {
-    private Product product;
-    private int quantity;
+    private String product;
 
-    @Override
-    public String toString(){
-        return product.toString() +"\t" + quantity;
+    private Integer quantity;
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product == null ? null : product.trim();
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }
